@@ -18,7 +18,7 @@ if (window.webln) {
   (async () => {
     await window.webln.enable();
     const info: GetInfoResponse = await window.webln.getInfo();
-    console.log(info);
+    console.log("Your node pubkey is", info.node.pubkey);
   })();
 } else {
   console.warn("WebLN not enabled");
