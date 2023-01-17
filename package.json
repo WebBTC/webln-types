@@ -1,9 +1,20 @@
 {
   "name": "@webbtc/webln-types",
+  "description": "Type definitions for WebLN",
   "version": "1.0.0",
   "types": "types/index.d.ts",
-  "repository": "https://github.com/WebBTC/webln-types.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebBTC/webln-types.git"
+  },
   "author": "WebBTC",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "npm:publish": "npm publish --access public"
+  },
+  "bugs": {
+    "url": "https://github.com/WebBTC/webln-types/issues"
+  },
+  "homepage": "https://github.com/WebBTC/webln-types#readme"
 }
