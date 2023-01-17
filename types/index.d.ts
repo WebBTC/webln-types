@@ -73,24 +73,20 @@ interface WebLNProvider {
   request(method: RequestMethod, args?: unknown): Promise<unknown>;
 }
 
-declare module "webln" {
-  export {
-    WebLNProvider,
-    RequestMethod,
-    WebLNNode,
-    GetInfoResponse,
-    SendPaymentResponse,
-    RequestInvoiceArgs,
-    KeysendArgs,
-    RequestInvoiceResponse,
-    SignMessageResponse,
-  };
-}
-
 declare global {
   interface Window {
     webln?: WebLNProvider;
   }
 }
 
-export {};
+export {
+  WebLNProvider,
+  RequestMethod,
+  WebLNNode,
+  GetInfoResponse,
+  SendPaymentResponse,
+  RequestInvoiceArgs,
+  KeysendArgs,
+  RequestInvoiceResponse,
+  SignMessageResponse,
+};
