@@ -7,6 +7,12 @@
     "type": "git",
     "url": "git+https://github.com/WebBTC/webln-types.git"
   },
+  "keywords": [
+    "webbtc",
+    "webln",
+    "bitcoin",
+    "lightning"
+  ],
   "author": "WebBTC",
   "license": "MIT",
   "private": false,
