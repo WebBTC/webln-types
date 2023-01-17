@@ -12,7 +12,7 @@ WebLN may be implemented by a lightning browser extension (e.g. [Alby](https://g
  npm install @webbtc/webln-types --save-dev # or yarn add @webbtc/webln-types --dev
 ```
 
-2. Type definitions are now available through `window.webln` and importing from `"@webbtc/webln-types"`
+2. Type definitions are now available for `window.webln` and by importing from `"@webbtc/webln-types"`
 
 ```javascript
 import { GetInfoResponse } from "@webbtc/webln-types";
