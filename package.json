@@ -1,0 +1,9 @@
+{
+  "name": "@webbtc/webln-types",
+  "version": "1.0.0",
+  "types": "types/index.d.ts",
+  "repository": "https://github.com/WebBTC/webln-types.git",
+  "author": "WebBTC",
+  "license": "MIT",
+  "private": false
+}
