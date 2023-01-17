@@ -63,14 +63,14 @@ interface SignMessageResponse {
 interface WebLNProvider {
   enable(): Promise<{ enabled: boolean; remember: boolean }>;
   getInfo(): Promise<GetInfoResponse>;
-  sendPayment(paymentRequest: string): Promise<SendPaymentResponse>;
   keysend(args: KeysendArgs): Promise<SendPaymentResponse>;
   makeInvoice(
     args: string | number | RequestInvoiceArgs
   ): Promise<RequestInvoiceResponse>;
+  request(method: RequestMethod, args?: unknown): Promise<unknown>;
+  sendPayment(paymentRequest: string): Promise<SendPaymentResponse>;
   signMessage(message: string): Promise<SignMessageResponse>;
   verifyMessage(signature: string, message: string): Promise<void>;
-  request(method: RequestMethod, args?: unknown): Promise<unknown>;
 }
 
 declare global {
