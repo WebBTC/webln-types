@@ -27,7 +27,7 @@ if (window.webln) {
 }
 ```
 
-_If you do not import any types from "@webbtc/webln-types" and just want to use window.webln, add the following line somewhere in your codebase (e.g. the main/index.tsx file) to ensure the types still get consumed:_
+_If you do not import any types from "@webbtc/webln-types" and just want to use window.webln, add the following directive somewhere in your codebase (e.g. the main/index.tsx file) to ensure the types still get consumed. (See the [Typescript docs](https://www.typescriptlang.org/docs/handbook/declaration-files/library-structures.html#dependencies-on-global-libraries) for more information)_
 
 ```javascript
 /// <reference types="@webbtc/webln-types" />
