@@ -2,6 +2,8 @@
 
 Type definitions for [WebLN](https://webbtc.dev/webln)
 
+WebLN may be implemented by a lightning browser extension (e.g. [Alby](https://getalby.com/)) therefore WebLN can already be called directly from the browser if the user has the extension installed. This package simply adds type definitions to make it easier to integrate WebLN into web applications that are written in Typescript.
+
 ## Quick Start
 
 1. Install package
