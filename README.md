@@ -12,9 +12,10 @@ WebLN may be implemented by a lightning browser extension (e.g. [Alby](https://g
  npm install @webbtc/webln-types --save-dev # or yarn add @webbtc/webln-types --dev
 ```
 
-2. Type definitions are now available for `window.webln` and by importing from `"@webbtc/webln-types"`
+2. Import `"@webbtc/webln-types"`
 
 ```javascript
+//import "@webbtc/webln-types"; // if you just want to use window.webln
 import { GetInfoResponse } from "@webbtc/webln-types";
 if (window.webln) {
   (async () => {
@@ -25,12 +26,6 @@ if (window.webln) {
 } else {
   console.warn("WebLN not enabled");
 }
-```
-
-_If you do not import any types from "@webbtc/webln-types" and just want to use window.webln, add the following directive somewhere in your codebase (e.g. the main/index.tsx file) to ensure the types still get consumed. (See the [Typescript docs](https://www.typescriptlang.org/docs/handbook/declaration-files/library-structures.html#dependencies-on-global-libraries) for more information)_
-
-```javascript
-/// <reference types="@webbtc/webln-types" />
 ```
 
 ## Adding WebLN to your application
