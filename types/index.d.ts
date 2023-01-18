@@ -60,10 +60,18 @@ interface SignMessageResponse {
   message: string;
   signature: string;
 }
+
+type LNURLResponse =
+  | {
+      status: "OK";
+    }
+  | { status: "ERROR"; reason: string };
+
 interface WebLNProvider {
   enable(): Promise<{ enabled: boolean; remember: boolean }>;
   getInfo(): Promise<GetInfoResponse>;
   keysend(args: KeysendArgs): Promise<SendPaymentResponse>;
+  lnurl(lnurl: string): Promise<LNURLResponse>;
   makeInvoice(
     args: string | number | RequestInvoiceArgs
   ): Promise<RequestInvoiceResponse>;
