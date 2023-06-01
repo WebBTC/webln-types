@@ -1,7 +1,7 @@
 {
   "name": "@webbtc/webln-types",
   "description": "Type definitions for WebLN",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "types": "types/index.d.ts",
   "repository": {
     "type": "git",
