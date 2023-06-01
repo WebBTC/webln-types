@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/WebBTC/webln-types/issues"
   },
-  "homepage": "https://github.com/WebBTC/webln-types#readme"
+  "homepage": "https://github.com/WebBTC/webln-types#readme",
+  "funding": {
+    "type": "lightning",
+    "url": "hello@getalby.com"
+  }
 }
