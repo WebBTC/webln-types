@@ -68,7 +68,7 @@ type LNURLResponse =
   | { status: "ERROR"; reason: string };
 
 interface WebLNProvider {
-  enable(): Promise<{ enabled: boolean; remember: boolean }>;
+  enable(): Promise<void>; // Promise<{ enabled: boolean; remember: boolean }>
   getInfo(): Promise<GetInfoResponse>;
   keysend(args: KeysendArgs): Promise<SendPaymentResponse>;
   lnurl(lnurl: string): Promise<LNURLResponse>;
