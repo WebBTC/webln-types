@@ -8,9 +8,9 @@ WebLN may be implemented by a lightning browser extension (e.g. [Alby](https://g
 
 1. Install package
 
-```bash
- npm install @webbtc/webln-types --save-dev # or yarn add @webbtc/webln-types --dev
-```
+   ```bash
+   npm install @webbtc/webln-types --save-dev # or yarn add @webbtc/webln-types --dev
+   ```
 
 2. Create `webln-types.d.ts` in your `src` directory with the following contents to ensure the types are picked up by the Typescript compiler:
 
@@ -20,18 +20,19 @@ WebLN may be implemented by a lightning browser extension (e.g. [Alby](https://g
 
 3.  Import types from `"@webbtc/webln-types"`
 
-```javascript
-import { GetInfoResponse } from "@webbtc/webln-types";
-if (window.webln) {
-  (async () => {
-    await window.webln.enable();
-    const info: GetInfoResponse = await window.webln.getInfo();
-    console.log("Your node pubkey is", info.node.pubkey);
-  })();
-} else {
-  console.warn("WebLN not enabled");
-}
-```
+   ```typescript
+   import type { GetInfoResponse } from "@webbtc/webln-types";
+
+   if (window.webln) {
+     (async () => {
+       await window.webln.enable();
+       const info: GetInfoResponse = await window.webln.getInfo();
+       console.log("Your node pubkey is", info.node.pubkey);
+     })();
+   } else {
+     console.warn("WebLN not enabled");
+   }
+   ```
 
 ## Adding WebLN to your application
 
