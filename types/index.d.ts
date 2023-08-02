@@ -273,7 +273,6 @@ interface WebLNProvider {
   verifyMessage(signature: string, message: string): Promise<void>;
   on(eventName: string, listener: () => void): this;
   off(eventName: string, listener: () => void): this;
-  emit(eventName: string, ...args: any[]): boolean;
 }
 
 declare global {
