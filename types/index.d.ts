@@ -271,8 +271,8 @@ interface WebLNProvider {
   sendPayment(paymentRequest: string): Promise<SendPaymentResponse>;
   signMessage(message: string): Promise<SignMessageResponse>;
   verifyMessage(signature: string, message: string): Promise<void>;
-  on?(eventName: string, listener: () => void): Promise<void>;
-  off?(eventName: string, listener: () => void): Promise<void>;
+  on?(eventName: string, listener: () => void): void;
+  off?(eventName: string, listener: () => void): void;
 }
 
 declare global {
