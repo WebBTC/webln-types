@@ -2,30 +2,32 @@
 // This allows TypeScript to understand that AdditionalString is a string that is distinct from the string literal type.
 type AdditionalString = string & { _additionalString?: never };
 
-type RequestMethod =
-  | "getinfo"
-  | "listchannels"
-  | "listinvoices"
-  | "channelbalance"
-  | "walletbalance"
-  | "openchannel"
-  | "connectpeer"
-  | "disconnectpeer"
-  | "estimatefee"
-  | "getchaninfo"
-  | "getnetworkinfo"
-  | "getnodeinfo"
-  | "gettransactions"
-  | "listpayments"
-  | "listpeers"
-  | "lookupinvoice"
-  | "queryroutes"
-  | "verifymessage"
-  | "sendtoroute"
-  | "decodepayreq"
-  | "routermc"
-  | "addinvoice"
+type WebLNRequestMethod =
+  | "request.getinfo"
+  | "request.listchannels"
+  | "request.listinvoices"
+  | "request.channelbalance"
+  | "request.walletbalance"
+  | "request.openchannel"
+  | "request.connectpeer"
+  | "request.disconnectpeer"
+  | "request.estimatefee"
+  | "request.getchaninfo"
+  | "request.getnetworkinfo"
+  | "request.getnodeinfo"
+  | "request.gettransactions"
+  | "request.listpayments"
+  | "request.listpeers"
+  | "request.lookupinvoice"
+  | "request.queryroutes"
+  | "request.verifymessage"
+  | "request.sendtoroute"
+  | "request.decodepayreq"
+  | "request.routermc"
+  | "request.addinvoice"
   | AdditionalString;
+
+type WebLNMethod = keyof WebLNProvider | AdditionalString;
 
 interface WebLNNode {
   alias: string;
@@ -36,7 +38,7 @@ interface GetInfoResponse {
   node: WebLNNode;
   version: string;
   supports: ("lightning" | AdditionalString)[];
-  methods: RequestMethod[];
+  methods: (WebLNRequestMethod | WebLNMethod)[];
 }
 interface SendPaymentResponse {
   preimage: string;
@@ -53,7 +55,7 @@ interface KeysendArgs {
   customRecords?: Record<string, string>;
   amount: string | number;
 }
-interface RequestInvoiceResponse {
+interface MakeInvoiceResponse {
   paymentRequest: string;
 }
 interface SignMessageResponse {
@@ -61,7 +63,29 @@ interface SignMessageResponse {
   signature: string;
 }
 
-type ListPeersResponse = {
+type LNURLResponse =
+  | {
+      status: "OK";
+    }
+  | { status: "ERROR"; reason: string };
+
+interface GetBalanceResponse {
+  balance: number;
+  max_amount?: number;
+  budget_renewal?: string;
+}
+
+interface LookupInvoiceArgs {
+  invoice?: string;
+  payment_hash?: string;
+}
+
+interface LookupInvoiceResponse {
+  paymentRequest: string;
+  paid: boolean;
+}
+
+type WebLNRequestListPeersResponse = {
   peers: {
     pub_key: string;
     address: string;
@@ -80,9 +104,11 @@ type ListPeersResponse = {
   }[];
 };
 
-type ListPeersRequestFunc = (method: "listpeers") => ListPeersResponse;
+type WebLNRequestListPeersRequestFunc = (
+  method: "request.listpeers"
+) => WebLNRequestListPeersResponse;
 
-type ListChannelsResponse = {
+type WebLNRequestListChannelsResponse = {
   channels: {
     active: boolean;
     remote_pubkey: string;
@@ -135,9 +161,11 @@ type ListChannelsResponse = {
   }[];
 };
 
-type ListChannelsRequestFunc = (method: "listchannels") => ListPeersResponse;
+type WebLNRequestListChannelsRequestFunc = (
+  method: "request.listchannels"
+) => WebLNRequestListChannelsResponse;
 
-type ListInvoicesResponse = {
+type WebLNRequestListInvoicesResponse = {
   invoices: {
     memo: string;
     r_preimage: string;
@@ -183,8 +211,8 @@ type ListInvoicesResponse = {
   first_index_offset: string;
 };
 
-type ListInvoicesRequestFunc = (
-  method: "listinvoices",
+type WebLNRequestListInvoicesRequestFunc = (
+  method: "request.listinvoices",
   args?: {
     reversed?: boolean;
     num_max_invoices?: number;
@@ -193,9 +221,9 @@ type ListInvoicesRequestFunc = (
     creation_date_start?: number;
     creation_date_end?: number;
   }
-) => ListInvoicesResponse;
+) => WebLNRequestListInvoicesResponse;
 
-type ListPaymentsResponse = {
+type WebLNRequestListPaymentsResponse = {
   payments: {
     payment_hash: string;
     value: string;
@@ -218,8 +246,8 @@ type ListPaymentsResponse = {
   total_num_payments: string;
 };
 
-type ListPaymentsRequestFunc = (
-  method: "listpayments",
+type WebLNRequestListPaymentsFunc = (
+  method: "request.listpayments",
   args?: {
     reversed?: boolean;
     num_max_invoices?: number;
@@ -228,15 +256,9 @@ type ListPaymentsRequestFunc = (
     creation_date_start?: number;
     creation_date_end?: number;
   }
-) => ListInvoicesResponse;
+) => WebLNRequestListPaymentsResponse;
 
-type LNURLResponse =
-  | {
-      status: "OK";
-    }
-  | { status: "ERROR"; reason: string };
-
-type WalletBalanceResponse = {
+type WebLNRequestWalletBalanceResponse = {
   total_balance: string;
   confirmed_balance: string;
   unconfirmed_balance: string;
@@ -250,27 +272,27 @@ type WalletBalanceResponse = {
   };
 };
 
-type WalletBalanceRequestFunc = (
-  method: "walletbalance"
-) => WalletBalanceResponse;
+type WebLNRequestWalletBalanceRequestFunc = (
+  method: "request.walletbalance"
+) => WebLNRequestWalletBalanceResponse;
 
 interface WebLNProvider {
   enable(): Promise<void>; // Promise<{ enabled: boolean; remember: boolean }>
   getInfo(): Promise<GetInfoResponse>;
-  keysend(args: KeysendArgs): Promise<SendPaymentResponse>;
-  lnurl(lnurl: string): Promise<LNURLResponse>;
   makeInvoice(
     args: string | number | RequestInvoiceArgs
-  ): Promise<RequestInvoiceResponse>;
-  request: ListPeersRequestFunc &
-    ListChannelsRequestFunc &
-    ListInvoicesRequestFunc &
-    ListPaymentsRequestFunc &
-    WalletBalanceRequestFunc &
-    ((method: RequestMethod, args?: unknown) => Promise<unknown>);
+  ): Promise<MakeInvoiceResponse>;
   sendPayment(paymentRequest: string): Promise<SendPaymentResponse>;
-  signMessage(message: string): Promise<SignMessageResponse>;
-  verifyMessage(signature: string, message: string): Promise<void>;
+
+  // optional methods
+  isEnabled?(): boolean;
+  getBalance?(): Promise<GetBalanceResponse>;
+  keysend?(args: KeysendArgs): Promise<SendPaymentResponse>;
+  lnurl?(lnurl: string): Promise<LNURLResponse>;
+  lookupInvoice?(args: LookupInvoiceArgs): Promise<LookupInvoiceResponse>;
+  request?: (method: WebLNRequestMethod, args?: unknown) => Promise<unknown>;
+  signMessage?(message: string): Promise<SignMessageResponse>;
+  verifyMessage?(signature: string, message: string): Promise<void>;
   on?(eventName: string, listener: () => void): void;
   off?(eventName: string, listener: () => void): void;
 }
@@ -283,17 +305,24 @@ declare global {
 
 export {
   WebLNProvider,
-  RequestMethod,
+  WebLNMethod,
   WebLNNode,
   GetInfoResponse,
   SendPaymentResponse,
   RequestInvoiceArgs,
   KeysendArgs,
-  RequestInvoiceResponse,
+  MakeInvoiceResponse,
   SignMessageResponse,
-  ListPeersResponse,
-  ListChannelsResponse,
-  WalletBalanceResponse,
-  ListInvoicesResponse,
-  ListPaymentsResponse,
+  GetBalanceResponse,
+  LookupInvoiceArgs,
+  LookupInvoiceResponse,
+
+  // webln.request methods
+  WebLNRequestMethod,
+  // (webln.request as WebLNRequestWalletBalanceRequestFunc)("request.walletbalance")
+  WebLNRequestWalletBalanceRequestFunc,
+  WebLNRequestListChannelsRequestFunc,
+  WebLNRequestListInvoicesRequestFunc,
+  WebLNRequestListPaymentsFunc,
+  WebLNRequestListPeersRequestFunc,
 };
