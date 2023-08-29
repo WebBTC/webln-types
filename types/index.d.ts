@@ -71,8 +71,9 @@ type LNURLResponse =
 
 interface GetBalanceResponse {
   balance: number;
-  max_amount?: number;
-  budget_renewal?: string;
+  currency?: string;
+  // max_amount?: number;
+  // budget_renewal?: string;
 }
 
 interface LookupInvoiceArgs {
