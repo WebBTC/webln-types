@@ -26,6 +26,6 @@
   "homepage": "https://github.com/WebBTC/webln-types#readme",
   "funding": {
     "type": "lightning",
-    "url": "hello@getalby.com"
+    "url": "lightning:hello@getalby.com"
   }
 }
