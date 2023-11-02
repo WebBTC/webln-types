@@ -286,7 +286,7 @@ interface WebLNProvider {
   sendPayment(paymentRequest: string): Promise<SendPaymentResponse>;
 
   // optional methods
-  isEnabled?(): boolean;
+  isEnabled?(): Promise<boolean>;
   getBalance?(): Promise<GetBalanceResponse>;
   keysend?(args: KeysendArgs): Promise<SendPaymentResponse>;
   lnurl?(lnurl: string): Promise<LNURLResponse>;
