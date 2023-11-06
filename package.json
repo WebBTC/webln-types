@@ -16,10 +16,6 @@
   "author": "WebBTC",
   "license": "MIT",
   "private": false,
-  "scripts": {
-    "npm:bump-version": "npm version patch",
-    "npm:publish": "npm publish --access public"
-  },
   "bugs": {
     "url": "https://github.com/WebBTC/webln-types/issues"
   },
