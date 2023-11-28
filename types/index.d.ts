@@ -40,6 +40,34 @@ interface GetInfoResponse {
   supports: ("lightning" | AdditionalString)[];
   methods: (WebLNRequestMethod | WebLNMethod)[];
 }
+
+interface PayKeysendResponse {
+  preimage: string;
+  paymentHash: string;
+}
+
+interface PayKeysendArgs {
+  amount: string;
+  pubkey: string;
+  message?: string;
+  tlv_records?: Record<string, string | number>;
+}
+
+interface ListInvoicesArgs {
+  from?: number;
+  until?: number;
+  limit?: number;
+  offset?: number;
+  unpaid?: boolean;
+}
+
+interface ListPaymentsArgs {
+  from?: number;
+  until?: number;
+  limit?: number;
+  offset?: number;
+}
+
 interface SendPaymentResponse {
   preimage: string;
 }
@@ -315,6 +343,10 @@ export {
   MakeInvoiceResponse,
   SignMessageResponse,
   GetBalanceResponse,
+  PayKeysendArgs,
+  PayKeysendResponse,
+  ListInvoicesArgs,
+  ListPaymentsArgs,
   LookupInvoiceArgs,
   LookupInvoiceResponse,
 
