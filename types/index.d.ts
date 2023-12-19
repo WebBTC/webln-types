@@ -77,12 +77,13 @@ interface GetBalanceResponse {
 }
 
 interface LookupInvoiceArgs {
-  invoice?: string;
-  payment_hash?: string;
+  paymentRequest?: string;
+  paymentHash?: string;
 }
 
 interface LookupInvoiceResponse {
   paymentRequest: string;
+  preimage?: string;
   paid: boolean;
 }
 
